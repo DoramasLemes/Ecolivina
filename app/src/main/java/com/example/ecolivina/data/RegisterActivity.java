@@ -8,14 +8,13 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.ecolivina.R;
 
 public class RegisterActivity extends AppCompatActivity {
 
     //Declaración de las variables necesarias
     EditText name, apellidos, username, email, password, password2, edad;
-    Button btn_register, btn_login;
+    Button btn_register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
 
     //Metodo para ir a la pantalla de login
     public void loginButton(View view) {
