@@ -23,6 +23,7 @@
         android:enabled="true"
         android:text="@string/prompt_buttonRegisterLogin"
         android:textSize="12sp"
+        android:onClick="registerButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

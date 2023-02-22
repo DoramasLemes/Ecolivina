@@ -17,6 +17,7 @@
         android:text="@string/buttonlogin"
         android:textSize="12sp"
         android:enabled="true"
+        android:onClick="loginButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

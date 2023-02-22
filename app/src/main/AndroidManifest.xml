@@ -19,6 +19,7 @@
         </activity>
         <activity
             android:name=".data.RegisterActivity"
+            android:parentActivityName=".data.LoginActivity"
             android:exported="true" />
         <activity
             android:name=".data.LoginActivity"

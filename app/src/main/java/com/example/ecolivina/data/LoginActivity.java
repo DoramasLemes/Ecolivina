@@ -1,5 +1,6 @@
 package com.example.ecolivina.data;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -39,6 +40,12 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Los campos son obligatorios", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    //Metodo para ir a la pantalla de registro
+    public void registerButton(View view) {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
     }
 
 }

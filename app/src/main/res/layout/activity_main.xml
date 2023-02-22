@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".data.MainActivity">
 
-
     <View
         android:id="@+id/view"
         android:layout_width="wrap_content"
@@ -80,4 +79,7 @@
         app:layout_constraintTop_toBottomOf="@+id/titleRegister"
         app:layout_constraintVertical_bias="0.0"
         tools:ignore="TouchTargetSizeCheck" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

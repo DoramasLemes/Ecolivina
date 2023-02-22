@@ -1,5 +1,6 @@
 package com.example.ecolivina.data;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,7 @@ public class RegisterActivity extends AppCompatActivity {
     //Declaración de las variables necesarias
     EditText name, apellidos, username, email, password, password2, edad;
     Button btn_register, btn_login;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +36,7 @@ public class RegisterActivity extends AppCompatActivity {
         btn_register.setOnClickListener(v -> {
 
             // Creamos el Array de todos los campos
-            EditText [] listCampos = {name,apellidos, username, email
+            EditText[] listCampos = {name, apellidos, username, email
                     , apellidos, email, password, password2, edad};
 
             //Iteramos el array para ver si hay algun campo vacio
@@ -48,5 +49,11 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    //Metodo para ir a la pantalla de login
+    public void loginButton(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
     }
 }
