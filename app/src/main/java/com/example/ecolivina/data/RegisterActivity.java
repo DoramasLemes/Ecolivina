@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Los campos son obligatorios", Toast.LENGTH_SHORT).show();
                 }else if (password.getText().toString().equals(password2.getText().toString())){
                     //Si las contraseñas son iguales, ejecutamos el servicio
-                    ejecutarServicio("http://localhost:8080/ecoLivina/registrar_usuario.php");
+                    ejecutarServicio("http://localhost:80/ecoLivina/registrar_usuario.php");
             }else{
                     //Si las contraseñas no son iguales, avisamos al usuario
                     Toast.makeText(RegisterActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
@@ -74,12 +74,17 @@ public class RegisterActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(RegisterActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                if (!response.isEmpty()){
+                    //Si el registro es exitoso, vamos a la pantalla de login
+                    loginButton(null);
+                }else {
+                    Toast.makeText(RegisterActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(RegisterActivity.this, "Error en el registro", Toast.LENGTH_SHORT).show();
+                Toast.makeText(RegisterActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         }){
             //Añadimos los parametros que vamos a enviar al servidor
@@ -105,4 +110,5 @@ public class RegisterActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
+
 }

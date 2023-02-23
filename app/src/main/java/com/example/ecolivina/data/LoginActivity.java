@@ -43,13 +43,13 @@ public class LoginActivity extends AppCompatActivity {
             String passwordUser = password.getText().toString();
 
             //Validacion de introduccion de los campos
-            if (emailUser.isEmpty() && passwordUser.isEmpty()) {
+            if (emailUser.isEmpty() || passwordUser.isEmpty()) {
                 email.setError("El campo email es obligatorio");
                 password.setError("El campo contraseña es obligatorio");
                 Toast.makeText(LoginActivity.this, "Los campos son obligatorios", Toast.LENGTH_SHORT).show();
             } else {
                 //Si los campos cumplen los requisitos ejecutamos el servicio
-                ejecutarServicio("http://localhost:8080/ecoLivina/validar_usuario.php");
+                ejecutarServicio("http://localhost:80/ecoLivina/validar_usuario.php");
             }
         });
     }
@@ -58,12 +58,17 @@ public class LoginActivity extends AppCompatActivity {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Toast.makeText(LoginActivity.this, "Login exitoso", Toast.LENGTH_SHORT).show();
+                if (!response.isEmpty()){
+                    //Si el login es exitoso vamos a la pantalla principal
+                    goToMain();
+                }else{
+                    Toast.makeText(LoginActivity.this, "Usuario o contraseña incorrecta", Toast.LENGTH_SHORT).show();
+                }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this, "Error de login", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         }){
             //Agregamos los parametros que vamos a enviar al servicio
@@ -83,6 +88,12 @@ public class LoginActivity extends AppCompatActivity {
     //Metodo para ir a la pantalla de registro
     public void registerButton(View view) {
         Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    //Metodo para ir a la pantalla principal
+    private void goToMain() {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
