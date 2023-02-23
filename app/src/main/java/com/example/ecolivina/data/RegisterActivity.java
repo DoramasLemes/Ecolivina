@@ -82,6 +82,7 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "Error en el registro", Toast.LENGTH_SHORT).show();
             }
         }){
+            //Añadimos los parametros que vamos a enviar al servidor
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> parametros = new HashMap<>();
