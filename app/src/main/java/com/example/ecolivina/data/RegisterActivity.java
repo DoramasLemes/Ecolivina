@@ -72,6 +72,7 @@ public class RegisterActivity extends AppCompatActivity {
     //Metodo para registrar un usuario en MySQL
     private void ejecutarServicio(String URL){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            //Si la respuesta es exitosa, ejecutamos el metodo onResponse
             @Override
             public void onResponse(String response) {
                 if (!response.isEmpty()){
@@ -82,6 +83,7 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         }, new Response.ErrorListener() {
+            //Si la respuesta es erronea, ejecutamos el metodo onErrorResponse
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(RegisterActivity.this, error.toString(), Toast.LENGTH_SHORT).show();

@@ -56,6 +56,7 @@ public class LoginActivity extends AppCompatActivity {
     //Metodo para loguear un usuario en MySQL
     private void ejecutarServicio(String URL){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
+            //Si el servicio responde correctamente
             @Override
             public void onResponse(String response) {
                 if (!response.isEmpty()){
@@ -66,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         }, new Response.ErrorListener() {
+            //Si el servicio responde con un error
             @Override
             public void onErrorResponse(VolleyError error) {
                 String sError= error.toString();
@@ -82,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 return parametros;
             }
         };
-        //Creamos la cola de peticiones para que la libreria las ejecute
+        //Se crea la cola de peticiones
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
