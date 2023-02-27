@@ -58,7 +58,7 @@ public class RegisterActivity extends AppCompatActivity {
                     Toast.makeText(RegisterActivity.this, "Los campos son obligatorios", Toast.LENGTH_SHORT).show();
                 }else if (password.getText().toString().equals(password2.getText().toString())){
                     //Si las contraseñas son iguales, ejecutamos el servicio
-                    ejecutarServicio("http://localhost:80/ecoLivina/registrar_usuario.php");
+                    ejecutarServicio("http://10.0.2.2/ecoLivina/registrar_usuario.php");
             }else{
                     //Si las contraseñas no son iguales, avisamos al usuario
                     Toast.makeText(RegisterActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();

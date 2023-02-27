@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Los campos son obligatorios", Toast.LENGTH_SHORT).show();
             } else {
                 //Si los campos cumplen los requisitos ejecutamos el servicio
-                ejecutarServicio("http://localhost:80/ecoLivina/validar_usuario.php");
+                ejecutarServicio("http://10.0.2.2/ecolivina/validar_usuario.php");
             }
         });
     }
@@ -68,7 +68,9 @@ public class LoginActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(LoginActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                String sError= error.toString();
+                Toast.makeText(LoginActivity.this, sError, Toast.LENGTH_SHORT).show();
+                System.out.println("Error consecuente: " + sError);
             }
         }){
             //Agregamos los parametros que vamos a enviar al servicio
