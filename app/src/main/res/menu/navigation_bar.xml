@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:title="@string/navigation_home"
+        android:enabled="true"
+        android:icon="@drawable/logoolivina"/>
+    <item
+        android:id="@+id/navigation_favs"
+        android:title="@string/navigation_favs"
+        android:enabled="true"
+        android:icon="@drawable/logoolivina"/>
+    <item
+        android:id="@+id/navigation_subir"
+        android:title="@string/navigation_subir"
+        android:enabled="true"
+        android:icon="@drawable/logoolivina"/>
+    <item
+        android:id="@+id/navigation_buzon"
+        android:title="@string/navigation_buzon"
+        android:enabled="true"
+        android:icon="@drawable/logoolivina"/>
+    <item
+        android:id="@+id/navigation_perfil"
+        android:title="@string/navigation_perfil"
+        android:enabled="true"
+        android:icon="@drawable/logoolivina"/>
+</menu>

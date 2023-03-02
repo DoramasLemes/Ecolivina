@@ -24,4 +24,17 @@
     <!-- Strings related to home -->
     <string name="logoecolivina">logoEcolivina</string>
     <string name="lookingTxt">Buscar producto…</string>
+
+    <!-- Strings related to bar -->
+    <string name="navigation_home">Home</string>
+    <string name="navigation_favs">Favoritos</string>
+    <string name="navigation_subir">Subir+</string>
+    <string name="navigation_buzon">Buzón</string>
+    <string name="navigation_perfil">Perfil</string>
+    <string name="title_activity_perfil_main">perfilMain</string>
+
+    <!-- Strings related to profile -->
+    <string name="title_activity_perfil">Perfil</string>
+    <string name="profileUsernameView">Username</string>
+    <string name="profileEmailView">email@email.com</string>
 </resources>
