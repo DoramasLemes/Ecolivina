@@ -37,4 +37,9 @@
     <string name="title_activity_perfil">Perfil</string>
     <string name="profileUsernameView">Username</string>
     <string name="profileEmailView">email@email.com</string>
+    <string name="terminosProfile">Términos y condiciones</string>
+    <string name="politicaProfile">Política de privacidad</string>
+    <string name="closeProfile">Cerrar sesión</string>
+    <string name="deleteProfile">Eliminar cuenta</string>
+    <string name="imagenProfile">Imagen de Perfil</string>
 </resources>
