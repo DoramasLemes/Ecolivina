@@ -55,21 +55,16 @@
 
     <Button
         android:id="@+id/lookingButton"
-        android:layout_width="32dp"
-        android:layout_height="31dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:background="@android:drawable/ic_menu_search"
         android:contentDescription="@string/lookingTxt"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintStart_toEndOf="@+id/lookingText"
-        app:layout_constraintTop_toBottomOf="@+id/titleRegister"
-        app:layout_constraintVertical_bias="0.0"
-        tools:ignore="TouchTargetSizeCheck" />
+        app:layout_constraintTop_toBottomOf="@+id/titleRegister" />
 
-    <ScrollView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="423dp"
         android:background="#30332E"

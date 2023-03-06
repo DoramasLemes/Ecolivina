@@ -42,4 +42,11 @@
     <string name="closeProfile">Cerrar sesión</string>
     <string name="deleteProfile">Eliminar cuenta</string>
     <string name="imagenProfile">Imagen de Perfil</string>
+
+    <!-- Strings related to Products -->
+    <string name="nombre_producto">Nombre del producto</string>
+    <string name="precio_producto">Precio/Kg</string>
+    <string name="pesototal_producto">Peso total</string>
+    <string name="img_producto">Imagen del producto</string>
+    <string name="button_producto">Cosechar</string>
 </resources>
