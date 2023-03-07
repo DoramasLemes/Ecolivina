@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ecolivina.R;
 
 import org.json.JSONObject;
@@ -36,16 +38,20 @@ public class MainActivity extends AppCompatActivity {
     //Metodo buscar los productos de Ecolivina en MySQL
     private void ejecutarServicio(String URL){
         //Se crea la cola de peticiones, si la peticion es correcta se ejecuta el codigo de la funcion onResponse
-        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(URL,response -> {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(URL,response -> {
             //Se crea la lista de productos
             listaProductos = new ArrayList<>();
 
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
-                    listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("nombre"))));
-                    listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("precio"))));
-                    listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("peso"))));
+                    listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("tipo"), jsonObject.getString("precio"), jsonObject.getString("peso"))));
+                    //listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("precio"))));
+                    //listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("peso"))));
+
+                    System.out.println(listaProductos.size());
+                    System.out.println(listaProductos.get(0).get(1));
+                    //System.out.println("Lista de producto:" + listaProductos + "\n Número de productos: " + listaProductos.size());
                 } catch (Exception e) {
                     Toast.makeText(MainActivity.this, "Error en la iteracion de los datos", Toast.LENGTH_SHORT).show();
                 }
@@ -56,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
         }, error -> {
             Toast.makeText(MainActivity.this, "Error en la petición", Toast.LENGTH_SHORT).show();
         });
-
+        //Se agrega la peticion a la cola
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        requestQueue.add(jsonArrayRequest);
         };
     }

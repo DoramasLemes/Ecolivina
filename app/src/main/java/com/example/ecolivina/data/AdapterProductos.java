@@ -1,5 +1,6 @@
 package com.example.ecolivina.data;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,7 +35,9 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.View
     //Comunica adaptador con viewHolder y se añaden los datos de cada producto
     @Override
     public void onBindViewHolder(@NonNull AdapterProductos.ViewHolder holder, int position) {
-        holder.asignarProductos(listaProductos.get(0).get(position), listaProductos.get(1).get(position), listaProductos.get(2).get(position));
+        //for (int i = 0; i < listaProductos.size(); i++) {
+            holder.asignarProductos(listaProductos.get(position).get(0), listaProductos.get(position).get(1), listaProductos.get(position).get(2));
+        //}
     }
 
     //Devuelve el tamaño de la lista de productos
@@ -56,10 +59,11 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.View
         }
 
         //Se asignan los datos de cada producto
+        @SuppressLint("SetTextI18n")
         public void asignarProductos(String s, String s1, String s2) {
             nombreProducto.setText(s);
-            precioProducto.setText(s1);
-            pesoProducto.setText(s2);
+            precioProducto.setText(s1 + "/Kg");
+            pesoProducto.setText(s2 + "Kg");
         }
     }
 }

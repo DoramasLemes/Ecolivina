@@ -2,25 +2,30 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/imagenProducto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="63dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:contentDescription="@string/img_producto"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
         android:id="@+id/nombreProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="25dp"
         android:text="@string/nombre_producto"
+        android:textColor="#FFFFFF"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/precioProducto"
+        app:layout_constraintHorizontal_bias="0.263"
         app:layout_constraintStart_toEndOf="@+id/imagenProducto"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SmallSp" />
@@ -29,10 +34,14 @@
         android:id="@+id/precioProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="20dp"
         android:text="@string/precio_producto"
+        android:textAlignment="viewEnd"
+        android:textColor="#FFFFFF"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/cosecharButton"
+        app:layout_constraintStart_toEndOf="@+id/imagenProducto"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SmallSp" />
 
@@ -40,18 +49,26 @@
         android:id="@+id/pesoProducto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="70dp"
         android:text="@string/pesototal_producto"
+        android:textAlignment="viewEnd"
+        android:textColor="#FFFFFF"
         android:textSize="10sp"
+        app:layout_constraintEnd_toStartOf="@+id/cosecharButton"
+        app:layout_constraintStart_toEndOf="@+id/nombreProducto"
         app:layout_constraintTop_toBottomOf="@+id/precioProducto"
-        tools:layout_editor_absoluteX="270dp"
         tools:ignore="MissingConstraints,SmallSp" />
 
     <Button
         android:id="@+id/cosecharButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_width="71dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:text="@string/button_producto"
+        android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagenProducto"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
