@@ -23,16 +23,30 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<List<String>> listaProductos;
     RecyclerView recycler;
 
+    String emailUser, passwordUser;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Se reciben los datos del usuario
+        recibirDatos();
+        Toast.makeText(MainActivity.this, "El mail del usuario es: " +emailUser + "\n La contraseña del usuario es: " + passwordUser, Toast.LENGTH_SHORT).show();
 
         //Se crea el recycler view
         recycler = (RecyclerView) findViewById(R.id.recyclerView);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         ejecutarServicio("http://10.0.2.2/ecolivina/consulta.php");
 
+    }
+
+    //Metodo para recibir los datos del usuario
+    public void recibirDatos(){
+        Bundle extras = getIntent().getExtras();
+        emailUser = extras.getString("email");
+        passwordUser = extras.getString("password");
+        Toast.makeText(MainActivity.this, "El mail del usuario es: " +emailUser + "\n La contraseña del usuario es: " + passwordUser, Toast.LENGTH_SHORT).show();
     }
 
     //Metodo buscar los productos de Ecolivina en MySQL
@@ -46,11 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("tipo"), jsonObject.getString("precio"), jsonObject.getString("peso"))));
-                    //listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("precio"))));
-                    //listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("peso"))));
 
-                    System.out.println(listaProductos.size());
-                    System.out.println(listaProductos.get(0).get(1));
                     //System.out.println("Lista de producto:" + listaProductos + "\n Número de productos: " + listaProductos.size());
                 } catch (Exception e) {
                     Toast.makeText(MainActivity.this, "Error en la iteracion de los datos", Toast.LENGTH_SHORT).show();

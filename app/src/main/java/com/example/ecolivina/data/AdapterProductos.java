@@ -63,7 +63,7 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.View
         public void asignarProductos(String s, String s1, String s2) {
             nombreProducto.setText(s);
             precioProducto.setText(s1 + "/Kg");
-            pesoProducto.setText(s2 + "Kg");
+            pesoProducto.setText(s2 + "Kg total");
         }
     }
 }

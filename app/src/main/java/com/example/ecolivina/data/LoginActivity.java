@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(v -> {
             String emailUser = email.getText().toString();
             String passwordUser = password.getText().toString();
-
             //Validacion de introduccion de los campos
             if (emailUser.isEmpty() || passwordUser.isEmpty()) {
                 email.setError("El campo email es obligatorio");
@@ -98,7 +97,9 @@ public class LoginActivity extends AppCompatActivity {
     //Metodo para ir a la pantalla principal
     private void goToMain() {
         Intent intent = new Intent(this, MainActivity.class);
+        //Pasamos los datos del usuario a la pantalla principal
+        intent.putExtra("email", email.getText().toString());
+        intent.putExtra("password", password.getText().toString());
         startActivity(intent);
     }
-
 }
