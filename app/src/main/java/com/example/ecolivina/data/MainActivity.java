@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         //Se crea el recycler view
         recycler = (RecyclerView) findViewById(R.id.recyclerView);
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        ejecutarServicio("http://10.0.2.2/ecolivina/consulta.php");
+        ejecutarServicio("http://10.0.2.2/ecolivina/productos.php");
 
     }
 
@@ -56,12 +56,11 @@ public class MainActivity extends AppCompatActivity {
             //Se crea la lista de productos
             listaProductos = new ArrayList<>();
 
+            //Se recorren los datos de la respuesta
             for (int i = 0; i < response.length(); i++) {
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
-                    listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("tipo"), jsonObject.getString("precio"), jsonObject.getString("peso"))));
-
-                    //System.out.println("Lista de producto:" + listaProductos + "\n Número de productos: " + listaProductos.size());
+                    listaProductos.add(new ArrayList<String>(Arrays.asList(jsonObject.getString("tipo"), jsonObject.getString("precio"), jsonObject.getString("peso"),jsonObject.getString("img"))));
                 } catch (Exception e) {
                     Toast.makeText(MainActivity.this, "Error en la iteracion de los datos", Toast.LENGTH_SHORT).show();
                 }

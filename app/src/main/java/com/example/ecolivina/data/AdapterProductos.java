@@ -4,11 +4,13 @@ import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.ecolivina.R;
 
 import java.util.ArrayList;
@@ -35,9 +37,12 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.View
     //Comunica adaptador con viewHolder y se añaden los datos de cada producto
     @Override
     public void onBindViewHolder(@NonNull AdapterProductos.ViewHolder holder, int position) {
-        //for (int i = 0; i < listaProductos.size(); i++) {
-            holder.asignarProductos(listaProductos.get(position).get(0), listaProductos.get(position).get(1), listaProductos.get(position).get(2));
-        //}
+
+        holder.asignarProductos(listaProductos.get(position).get(0), listaProductos.get(position).get(1), listaProductos.get(position).get(2));
+        Glide.with(holder.itemView.getContext())
+                .load(listaProductos.get(position).get(3))
+                .centerCrop()
+                .into(holder.imagenProducto);
     }
 
     //Devuelve el tamaño de la lista de productos
@@ -50,12 +55,14 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.View
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView nombreProducto, precioProducto, pesoProducto;
+        ImageView imagenProducto;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             nombreProducto=itemView.findViewById(R.id.nombreProducto);
             precioProducto=itemView.findViewById(R.id.precioProducto);
             pesoProducto=itemView.findViewById(R.id.pesoProducto);
+            imagenProducto=itemView.findViewById(R.id.imagenProducto);
         }
 
         //Se asignan los datos de cada producto
