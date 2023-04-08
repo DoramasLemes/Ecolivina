@@ -79,20 +79,15 @@
         app:menu="@menu/navigation_bar" />
 
     <FrameLayout
-        android:id="@+id/frameContent"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="425dp"
+        android:background="#30332E"
         app:layout_constraintBottom_toTopOf="@+id/navigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view"
         app:layout_constraintVertical_bias="0.0">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#30332E" />
     </FrameLayout>
 
 
