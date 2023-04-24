@@ -20,9 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    ArrayList<List<String>> listaProductos;
-    RecyclerView recycler;
     String emailUser, passwordUser;
     //Declaracion del BottomMenu
     BottomNavigationView navigationView;
