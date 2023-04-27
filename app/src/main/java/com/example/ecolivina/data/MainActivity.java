@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             changeFragment(item.getItemId());
             return true;
         });
-
+        /*
         //Se reciben los datos del usuario
         try {
             recibirDatos();
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Toast.makeText(MainActivity.this, "El mail del usuario es: " +emailUser + "\n La contraseña del usuario es: " + passwordUser, Toast.LENGTH_SHORT).show();
-
+*/
     }
 
     //Metodo para cambiar de actividad

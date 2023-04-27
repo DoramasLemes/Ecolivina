@@ -43,6 +43,7 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.View
                 .load(listaProductos.get(position).get(3))
                 .centerCrop()
                 .into(holder.imagenProducto);
+
     }
 
     //Devuelve el tamaño de la lista de productos
@@ -69,7 +70,7 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.View
         @SuppressLint("SetTextI18n")
         public void asignarProductos(String s, String s1, String s2) {
             nombreProducto.setText(s);
-            precioProducto.setText(s1 + "/Kg");
+            precioProducto.setText(s1 + "€/Kg");
             pesoProducto.setText(s2 + "Kg total");
         }
     }
