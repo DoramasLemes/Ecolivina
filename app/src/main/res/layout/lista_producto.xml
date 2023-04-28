@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/imagenProducto"
+        android:id="@+id/imagenTipo"
         android:layout_width="63dp"
         android:layout_height="48dp"
         android:layout_marginStart="5dp"
@@ -17,21 +17,21 @@
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
     <TextView
-        android:id="@+id/nombreProducto"
+        android:id="@+id/nombre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:text="@string/nombre_producto"
         android:textColor="#FFFFFF"
         android:textSize="10sp"
-        app:layout_constraintEnd_toStartOf="@+id/precioProducto"
+        app:layout_constraintEnd_toStartOf="@+id/precioTipos"
         app:layout_constraintHorizontal_bias="0.263"
-        app:layout_constraintStart_toEndOf="@+id/imagenProducto"
+        app:layout_constraintStart_toEndOf="@+id/imagenTipo"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SmallSp" />
 
     <TextView
-        android:id="@+id/precioProducto"
+        android:id="@+id/precioTipos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
@@ -41,7 +41,7 @@
         android:textColor="#FFFFFF"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/cosecharButton"
-        app:layout_constraintStart_toEndOf="@+id/imagenProducto"
+        app:layout_constraintStart_toEndOf="@+id/imagenTipo"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="SmallSp" />
 
@@ -55,8 +55,8 @@
         android:textColor="#FFFFFF"
         android:textSize="10sp"
         app:layout_constraintEnd_toStartOf="@+id/cosecharButton"
-        app:layout_constraintStart_toEndOf="@+id/nombreProducto"
-        app:layout_constraintTop_toBottomOf="@+id/precioProducto"
+        app:layout_constraintStart_toEndOf="@+id/nombre"
+        app:layout_constraintTop_toBottomOf="@+id/precioTipos"
         tools:ignore="MissingConstraints,SmallSp" />
 
     <Button
@@ -69,6 +69,6 @@
         android:text="@string/button_producto"
         android:textSize="8sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imagenProducto"
+        app:layout_constraintStart_toEndOf="@+id/imagenTipo"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

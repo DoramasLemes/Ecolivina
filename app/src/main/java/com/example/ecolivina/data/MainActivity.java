@@ -13,6 +13,7 @@ import com.example.ecolivina.R;
 import com.example.ecolivina.data.fragmentos.FavFragment;
 import com.example.ecolivina.data.fragmentos.HomeFragment;
 import com.example.ecolivina.data.fragmentos.PerfilFragment;
+import com.example.ecolivina.data.fragmentos.TipoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView navigationView;
     HomeFragment homeFragment = new HomeFragment();
     FavFragment favFragment = new FavFragment();
+    TipoFragment tipoFragment = new TipoFragment();
     PerfilFragment perfilFragment = new PerfilFragment();
 
     @Override
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         //Se reciben los datos del usuario
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         fragmentTransaction.add(R.id.container, perfilFragment);
         //Se configura el bottom menu
         navigationView= findViewById(R.id.navigationView);
@@ -74,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, favFragment).commit();
                 break;
             case R.id.navigation_subir:
-                Toast.makeText(MainActivity.this, "Subir", Toast.LENGTH_SHORT).show();
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, tipoFragment).commit();
                 break;
             case R.id.navigation_buzon:
                 Toast.makeText(MainActivity.this, "Buzon", Toast.LENGTH_SHORT).show();
