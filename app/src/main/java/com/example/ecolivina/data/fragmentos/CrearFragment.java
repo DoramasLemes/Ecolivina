@@ -12,16 +12,23 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ecolivina.R;
 import com.example.ecolivina.data.MainActivity;
+import com.example.ecolivina.data.RegisterActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CrearFragment extends Fragment {
     int idtipo;
+    TextView textTipo, textCat;
+    EditText editPeso, editCantidad, editDescrip;
+    Button btnCrear;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,7 +41,6 @@ public class CrearFragment extends Fragment {
 
         // Ocultamos el ConstraintLayout
         UILayout.setVisibility(View.INVISIBLE);
-
         // Cambiamos la altura del ConstraintLayout del main activity
         ConstraintLayout.LayoutParams newParams = (ConstraintLayout.LayoutParams) UILayout.getLayoutParams();
         newParams.height= 1;
@@ -48,7 +54,20 @@ public class CrearFragment extends Fragment {
             idtipo = bundle.getInt("idtipo");
             // hacer algo con el valor
         }
+
+
+
         Toast.makeText(getActivity(), "idtipo: "+idtipo, Toast.LENGTH_SHORT).show();
+
+        //Declaración de las variables necesarias
+        textTipo = view.findViewById(R.id.textTipo);
+        editPeso = view.findViewById(R.id.editPeso);
+        editCantidad = view.findViewById(R.id.editCantidad);
+        editDescrip = view.findViewById(R.id.editDescrip);
+        btnCrear = view.findViewById(R.id.btnCrear);
+
+        textTipo.setText("Tipo: "+idtipo);
+        campos();
 
         return view;
 
@@ -72,4 +91,22 @@ public class CrearFragment extends Fragment {
             UILayout.setLayoutParams(layoutParams);
         }
     };
-}
+
+    private void campos(){
+        //Validación de los campos
+            // Creamos el Array de todos los campos
+            EditText[] listCampos = {editPeso, editCantidad, editDescrip};
+
+            //Iteramos el array para ver si hay algun campo vacio
+            for (EditText listCampo : listCampos) {
+                String campoTxt = listCampo.getText().toString();
+                if (campoTxt.isEmpty()) {
+                    //Añadimos el error y avisamos al usuario
+                    listCampo.setError("El campo es obligatorio");
+                    Toast.makeText(getContext(), "Los campos son obligatorios", Toast.LENGTH_SHORT).show();
+                }else{
+
+                }
+            }
+        }
+    }
