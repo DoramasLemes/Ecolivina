@@ -1,5 +1,11 @@
 package com.example.ecolivina.data.fragmentos;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -11,6 +17,8 @@ import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +34,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.ecolivina.R;
@@ -37,15 +46,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class CrearFragment extends Fragment {
+    String UPLOAD_URL = "http://10.0.2.2/ecolivina/productos/upload.php";
+    Bitmap bitmap;
+    String KEY_IMAGEN = "imagen";
+    String KEY_NOMBRE = "nombre";
     int idTipo, idCategoria;
     String nombreTipo, imgTipo;
-    ImageView viewTipo, viewCat;
+    ImageView viewTipo, viewCat, productoImg;
     TextView textTipo, textCat;
     EditText editPeso, editCantidad, editDescrip;
     Button btnCrear;
@@ -71,6 +88,7 @@ public class CrearFragment extends Fragment {
         getLifecycle().addObserver(lifecycleObserver);
 
         //Declaración de las variables necesarias
+        productoImg = view.findViewById(R.id.producto);
         viewTipo = view.findViewById(R.id.imageViewTipo);
         textTipo = view.findViewById(R.id.textTipo);
         viewCat = view.findViewById(R.id.imageViewCat);
@@ -95,15 +113,45 @@ public class CrearFragment extends Fragment {
 
         ejecutarServicio("http://10.0.2.2/ecolivina/categorias/fetch.php?id="+idCategoria);
 
-        btnCrear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                campos();
-            }
-        });
+        productoImg.setOnClickListener(v -> {showFileChooser();});
+        btnCrear.setOnClickListener(v -> campos());
 
         return view;
 
+    }
+
+    public String getStringImagen(Bitmap bmp) {
+        if (bmp != null) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+        } else {
+            return null;
+        }
+
+    }
+
+    private void showFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Seleccione una imagen"), 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
+            Uri filePath = data.getData();
+            try{
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getContext()).getContentResolver(), filePath);
+                productoImg.setImageBitmap(bitmap);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     private final LifecycleObserver lifecycleObserver = new LifecycleObserver() {
@@ -124,6 +172,20 @@ public class CrearFragment extends Fragment {
             layoutParams.height = ConstraintLayout.LayoutParams.WRAP_CONTENT;
             UILayout.setLayoutParams(layoutParams);
         }
+        @OnLifecycleEvent(Lifecycle.Event.ON_START)
+        public void onStart() {
+            // Obtener la referencia al ConstraintLayout del main activity
+            MainActivity mainActivity = (MainActivity) getActivity();
+            assert mainActivity != null;
+            ConstraintLayout UILayout = mainActivity.findViewById(R.id.UILayout);
+
+            // Ocultamos el ConstraintLayout
+            UILayout.setVisibility(View.INVISIBLE);
+            // Cambiamos la altura del ConstraintLayout del main activity
+            ConstraintLayout.LayoutParams newParams = (ConstraintLayout.LayoutParams) UILayout.getLayoutParams();
+            newParams.height = 1;
+            UILayout.setLayoutParams(newParams);
+        }
     };
 
     private void campos() {
@@ -139,7 +201,7 @@ public class CrearFragment extends Fragment {
                 listCampo.setError("El campo es obligatorio");
                 Toast.makeText(getContext(), "Los campos son obligatorios", Toast.LENGTH_SHORT).show();
             } else {
-
+                uploadImage();
             }
         }
     }
@@ -179,4 +241,43 @@ public class CrearFragment extends Fragment {
         requestQueue.add(request);
 
     }
+
+    public void uploadImage() {
+        Bundle bundle = getArguments();
+        int iduser = bundle.getInt("iduser");
+        final ProgressDialog loading = ProgressDialog.show(getContext(), "Subiendo...", "Espere por favor...", false, false);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        loading.dismiss();
+                        Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                loading.dismiss();
+                Toast.makeText(getContext(), volleyError.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                String peso = editPeso.getText().toString().trim();
+                String cantidad = editCantidad.getText().toString().trim();
+                String descrip = editDescrip.getText().toString().trim();
+                String imagen = getStringImagen(bitmap);
+                Map<String, String> params = new Hashtable<>();
+                params.put("peso", peso);
+                params.put("cantidad", cantidad);
+                params.put("descrip", descrip);
+                params.put("imagen", imagen);
+                params.put("idtipo", String.valueOf(idTipo));
+                params.put("iduser", String.valueOf(iduser));
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getContext()));
+        requestQueue.add(stringRequest);
+    }
+
 }

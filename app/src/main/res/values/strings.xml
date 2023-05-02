@@ -54,4 +54,5 @@
     <string name="categoria">categoria</string>
     <string name="editPeso">Precio</string>
     <string name="editCant">Peso</string>
+    <string name="productoView">producto imagen</string>
 </resources>
