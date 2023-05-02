@@ -73,8 +73,9 @@ public class TipoFragment extends Fragment {
                                         int id = object.getInt("id");
                                         String nombre = object.getString("nombre");
                                         String img = object.getString("img");
+                                        int idCategoria = object.getInt("idcategoria");
 
-                                        listaTipos.add(new ArrayList<>(Arrays.asList(id, nombre, img)));
+                                        listaTipos.add(new ArrayList<>(Arrays.asList(id, nombre, img, idCategoria)));
                                         adapterTipos = new AdapterTipos(listaTipos);
 
                                         adapterTipos.setOnClickListener(new View.OnClickListener() {
@@ -82,6 +83,9 @@ public class TipoFragment extends Fragment {
                                             public void onClick(View v) {
                                                 Bundle bundle = new Bundle();
                                                 bundle.putInt("idtipo", id);
+                                                bundle.putString("nombre", nombre);
+                                                bundle.putString("img", img);
+                                                bundle.putInt("idCategoria", idCategoria);
                                                 fragment.setArguments(bundle);
                                                 fragmentTransaction.replace(R.id.container, fragment);
                                                 fragmentTransaction.addToBackStack(null);
