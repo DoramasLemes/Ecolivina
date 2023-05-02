@@ -153,11 +153,15 @@ public class CrearFragment extends Fragment {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            textCat.setText(response.getString("nombre"));
-                            Glide.with(Objects.requireNonNull(getContext()))
-                                    .load(response.getString("img"))
+                            String nombre = response.getString("nombre");
+                            String urlImagen = response.getString("img");
+                            textCat.setText(nombre);
+
+                            // Usa Glide para cargar la imagen desde la URL
+                            Glide.with(requireContext())
+                                    .load(urlImagen)
                                     .centerCrop()
-                                    .into(viewTipo);
+                                    .into(viewCat);
 
                             } catch (JSONException ex) {
                             throw new RuntimeException(ex);

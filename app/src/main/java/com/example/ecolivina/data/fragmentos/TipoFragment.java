@@ -81,11 +81,15 @@ public class TipoFragment extends Fragment {
                                         adapterTipos.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
+                                                int idTipoClick = (int) listaTipos.get(recycler.getChildAdapterPosition(v)).get(0);
+                                                String nombreTipoClick = listaTipos.get(recycler.getChildAdapterPosition(v)).get(1).toString();
+                                                String imgTipoClick = listaTipos.get(recycler.getChildAdapterPosition(v)).get(2).toString();
+                                                int idCategoriaClick = (int) listaTipos.get(recycler.getChildAdapterPosition(v)).get(3);
                                                 Bundle bundle = new Bundle();
-                                                bundle.putInt("idtipo", id);
-                                                bundle.putString("nombre", nombre);
-                                                bundle.putString("img", img);
-                                                bundle.putInt("idCategoria", idCategoria);
+                                                bundle.putInt("idtipo", idTipoClick);
+                                                bundle.putString("nombre", nombreTipoClick);
+                                                bundle.putString("img", imgTipoClick);
+                                                bundle.putInt("idCategoria", idCategoriaClick);
                                                 fragment.setArguments(bundle);
                                                 fragmentTransaction.replace(R.id.container, fragment);
                                                 fragmentTransaction.addToBackStack(null);

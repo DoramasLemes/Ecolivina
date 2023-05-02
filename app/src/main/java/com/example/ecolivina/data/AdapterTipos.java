@@ -46,7 +46,25 @@ public class AdapterTipos extends RecyclerView.Adapter<AdapterTipos.ViewHolder> 
                 .load(listaTipos.get(position).get(2))
                 .centerCrop()
                 .into(holder.imagenTipo);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            if(listener!=null){
+                //Obtener la posición del elemento seleccionado
+                int position = holder.getAdapterPosition();
 
+                //Obtener los datos correspondientes del elemento seleccionado en la lista de tipos
+                int idTipo = (int) listaTipos.get(position).get(0);
+                String nombreTipo = (String) listaTipos.get(position).get(1);
+                String imagenTipo = (String) listaTipos.get(position).get(2);
+                int idCategoria = (int) listaTipos.get(position).get(3);
+
+                //Ejecutar la acción correspondiente con los datos obtenidos
+
+                //Llamar al método onClick del listener para ejecutar cualquier otra acción adicional
+                listener.onClick(v);
+            }
+        }});
     }
 
     //Devuelve el tamaño de la lista de tipos
