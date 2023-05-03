@@ -48,10 +48,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recibirDatos();
-
-        String URL = "http://10.0.2.2/ecolivina/usuarios/fetch.php?email="+emailUser;
-        ejecutarServicio(URL);
         //Se reciben los datos del usuario
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -67,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
             changeFragment(item.getItemId());
             return true;
         });
-        /*
+
         //Se reciben los datos del usuario
         try {
             recibirDatos();
@@ -76,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         Toast.makeText(MainActivity.this, "El mail del usuario es: " +emailUser + "\n La contraseña del usuario es: " + passwordUser, Toast.LENGTH_SHORT).show();
-*/
+
     }
 
     //Metodo para cambiar de actividad
@@ -112,6 +108,8 @@ public class MainActivity extends AppCompatActivity {
         emailUser = extras.getString("email");
         passwordUser = extras.getString("password");
         Toast.makeText(MainActivity.this, "El mail del usuario es: " +emailUser + "\n La contraseña del usuario es: " + passwordUser, Toast.LENGTH_SHORT).show();
+        String URL = "http://10.0.2.2/ecolivina/usuarios/fetch.php?email="+emailUser;
+        ejecutarServicio(URL);
     }
 
     private void ejecutarServicio(String URL) {
@@ -138,8 +136,8 @@ public class MainActivity extends AppCompatActivity {
                             bundle.putString("email", email);
                             bundle.putString("password", password);
                             bundle.putInt("edad", edad);
-                            Fragment fragment = new CrearFragment();
-                            fragment.setArguments(bundle);
+                            System.out.println("El id del usuario es: " + iduser);
+                            tipoFragment.setArguments(bundle);
 
                         } catch (JSONException ex) {
                             throw new RuntimeException(ex);

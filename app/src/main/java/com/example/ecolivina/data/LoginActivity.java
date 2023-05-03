@@ -98,6 +98,8 @@ public class LoginActivity extends AppCompatActivity {
     private void goToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         //Pasamos los datos del usuario a la pantalla principal
+        email = findViewById(R.id.username);
+        password = findViewById(R.id.password);
         intent.putExtra("email", email.getText().toString());
         intent.putExtra("password", password.getText().toString());
         startActivity(intent);

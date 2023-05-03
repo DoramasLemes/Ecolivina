@@ -5,6 +5,7 @@ import static android.app.Activity.RESULT_OK;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -15,7 +16,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -32,40 +32,33 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.ecolivina.R;
-import com.example.ecolivina.data.AdapterTipos;
 import com.example.ecolivina.data.MainActivity;
-import com.example.ecolivina.data.RegisterActivity;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 public class CrearFragment extends Fragment {
     String UPLOAD_URL = "http://10.0.2.2/ecolivina/productos/upload.php";
-    Bitmap bitmap;
-    String KEY_IMAGEN = "imagen";
-    String KEY_NOMBRE = "nombre";
-    int idTipo, idCategoria;
+    Bitmap decode;
+    int idCategoria;
     String nombreTipo, imgTipo;
     ImageView viewTipo, viewCat, productoImg;
     TextView textTipo, textCat;
     EditText editPeso, editCantidad, editDescrip;
     Button btnCrear;
+    HomeFragment homeFragment = new HomeFragment();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,8 +92,9 @@ public class CrearFragment extends Fragment {
         btnCrear = view.findViewById(R.id.btnCrear);
 
         Bundle bundle = getArguments();
-        if (bundle != null) {
-            idTipo = bundle.getInt("idtipo");
+        if (bundle != null) {;
+            int iduser = bundle.getInt("iduser");
+            Toast.makeText(getContext(), "iduser: "+iduser, Toast.LENGTH_SHORT).show();
             nombreTipo = bundle.getString("nombre");
             imgTipo = bundle.getString("img");
             idCategoria = bundle.getInt("idCategoria");
@@ -140,14 +134,21 @@ public class CrearFragment extends Fragment {
         startActivityForResult(Intent.createChooser(intent,"Seleccione una imagen"), 1);
     }
 
+    private void setImageView(Bitmap bitmap){
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        decode = BitmapFactory.decodeStream(new ByteArrayInputStream(bytes.toByteArray()));
+        productoImg.setImageBitmap(bitmap);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null){
             Uri filePath = data.getData();
             try{
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getContext()).getContentResolver(), filePath);
-                productoImg.setImageBitmap(bitmap);
+                Bitmap bmp = MediaStore.Images.Media.getBitmap(Objects.requireNonNull(getContext()).getContentResolver(), filePath);
+                setImageView(bmp);
             }catch (IOException e){
                 e.printStackTrace();
             }
@@ -200,7 +201,11 @@ public class CrearFragment extends Fragment {
                 //Añadimos el error y avisamos al usuario
                 listCampo.setError("El campo es obligatorio");
                 Toast.makeText(getContext(), "Los campos son obligatorios", Toast.LENGTH_SHORT).show();
-            } else {
+            }else if(editDescrip.getText().toString().length() > 100){
+                editDescrip.setError("La descripción debe tener al máximo 100 caracteres");
+            } else if (productoImg.getDrawable() == null) {
+                Toast.makeText(getContext(), "Debe seleccionar una imagen", Toast.LENGTH_SHORT).show();
+            }else {
                 uploadImage();
             }
         }
@@ -242,15 +247,28 @@ public class CrearFragment extends Fragment {
 
     }
 
+    private String getStringImage(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte [] imageBytes = baos.toByteArray();
+        return Base64.encodeToString(imageBytes, Base64.DEFAULT);
+    }
+
     public void uploadImage() {
-        Bundle bundle = getArguments();
-        int iduser = bundle.getInt("iduser");
+
         final ProgressDialog loading = ProgressDialog.show(getContext(), "Subiendo...", "Espere por favor...", false, false);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, UPLOAD_URL,
+        StringRequest stringRequest = new StringRequest(
+                Request.Method.POST,
+                UPLOAD_URL,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         loading.dismiss();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.container, homeFragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
                         Toast.makeText(getContext(), response, Toast.LENGTH_LONG).show();
                     }
                 }, new Response.ErrorListener() {
@@ -262,17 +280,20 @@ public class CrearFragment extends Fragment {
         }) {
             @Override
             protected Map<String, String> getParams() {
+                Bundle bundle = getArguments();
+                int idtipo = bundle.getInt("idtipo");
+                int iduser = bundle.getInt("iduser");
                 String peso = editPeso.getText().toString().trim();
                 String cantidad = editCantidad.getText().toString().trim();
                 String descrip = editDescrip.getText().toString().trim();
-                String imagen = getStringImagen(bitmap);
                 Map<String, String> params = new Hashtable<>();
                 params.put("peso", peso);
                 params.put("cantidad", cantidad);
-                params.put("descrip", descrip);
-                params.put("imagen", imagen);
-                params.put("idtipo", String.valueOf(idTipo));
+                params.put("descripcion", descrip);
+                params.put("imagen", getStringImage(decode));
+                params.put("idtipo", String.valueOf(idtipo));
                 params.put("iduser", String.valueOf(iduser));
+
                 return params;
             }
         };
