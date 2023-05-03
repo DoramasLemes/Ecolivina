@@ -201,13 +201,14 @@ public class CrearFragment extends Fragment {
                 //Añadimos el error y avisamos al usuario
                 listCampo.setError("El campo es obligatorio");
                 Toast.makeText(getContext(), "Los campos son obligatorios", Toast.LENGTH_SHORT).show();
-            }else if(editDescrip.getText().toString().length() > 100){
-                editDescrip.setError("La descripción debe tener al máximo 100 caracteres");
-            } else if (productoImg.getDrawable() == null) {
-                Toast.makeText(getContext(), "Debe seleccionar una imagen", Toast.LENGTH_SHORT).show();
-            }else {
-                uploadImage();
             }
+        }
+        if(editDescrip.getText().toString().length() > 100){
+            editDescrip.setError("La descripción debe tener al máximo 100 caracteres");
+        } else if (productoImg.getDrawable() == null) {
+            Toast.makeText(getContext(), "Debe seleccionar una imagen", Toast.LENGTH_SHORT).show();
+        }else {
+            uploadImage();
         }
     }
 
