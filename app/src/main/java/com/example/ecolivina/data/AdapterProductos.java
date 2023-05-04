@@ -17,9 +17,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 //Creacion del adaptador para mostrar cada producto en el recycler view
-public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.ViewHolder>{
+public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.ViewHolder> implements View.OnClickListener {
 
     ArrayList<List<String>> listaProductos;
+    private View.OnClickListener listener;
 
     public AdapterProductos(ArrayList<List<String>> listaProductos) {
         this.listaProductos = listaProductos;
@@ -38,12 +39,40 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.View
     @Override
     public void onBindViewHolder(@NonNull AdapterProductos.ViewHolder holder, int position) {
 
-        holder.asignarProductos(listaProductos.get(position).get(0), listaProductos.get(position).get(1), listaProductos.get(position).get(2));
+        holder.asignarProductos(listaProductos.get(position).get(1), listaProductos.get(position).get(2), listaProductos.get(position).get(3));
         Glide.with(holder.itemView.getContext())
-                .load(listaProductos.get(position).get(3))
+                .load(listaProductos.get(position).get(4))
                 .centerCrop()
                 .into(holder.imagenProducto);
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listener!=null){
+                    //Obtener la posición del elemento seleccionado
+                    int position = holder.getAdapterPosition();
+
+                    //Obtener los datos correspondientes del elemento seleccionado en la lista de tipos
+                    String nombreProducto = (String) listaProductos.get(position).get(1);
+                    String precioProducto = (String) listaProductos.get(position).get(2);
+                    String pesoProducto = (String) listaProductos.get(position).get(3);
+                    String imagenProducto = (String) listaProductos.get(position).get(4);
+
+                    //Llamar al método onClick del listener para ejecutar cualquier otra acción adicional
+                    listener.onClick(v);
+                }
+            }});
+    }
+
+    public void setOnClickListener(View.OnClickListener listener){
+        this.listener=listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(listener!=null){
+            listener.onClick(v);
+        }
     }
 
     //Devuelve el tamaño de la lista de productos

@@ -59,8 +59,6 @@ public class AdapterTipos extends RecyclerView.Adapter<AdapterTipos.ViewHolder> 
                 String imagenTipo = (String) listaTipos.get(position).get(2);
                 int idCategoria = (int) listaTipos.get(position).get(3);
 
-                //Ejecutar la acción correspondiente con los datos obtenidos
-
                 //Llamar al método onClick del listener para ejecutar cualquier otra acción adicional
                 listener.onClick(v);
             }

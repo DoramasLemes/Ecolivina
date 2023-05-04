@@ -3,6 +3,8 @@ package com.example.ecolivina.data.fragmentos;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,6 +35,7 @@ import java.util.Objects;
 
 public class HomeFragment extends Fragment {
     ArrayList<List<String>> listaProductos;
+    Fragment fragment = new ProductFragment();
     RecyclerView recycler;
 
     @Override
@@ -57,21 +60,45 @@ public class HomeFragment extends Fragment {
                     @Override
                     public void onResponse(JSONArray response) {
                         listaProductos = new ArrayList<>();
+                        FragmentManager fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         try {
                             if (response.length() > 0) {
                                 JSONObject jsonObject = response.getJSONObject(0);
                                 if (jsonObject.has("idproducto")) {
                                     for (int i = 0; i < response.length(); i++) {
                                         JSONObject object = response.getJSONObject(i);
+                                        String id = String.valueOf(object.getInt("idproducto"));
                                         String tipo = object.getString("nombre_tipo");
                                         String precio = object.getString("precio");
                                         String peso = object.getString("peso");
                                         String img = object.getString("img");
 
-                                        listaProductos.add(new ArrayList<>(Arrays.asList(tipo, precio, peso, img)));
+                                        listaProductos.add(new ArrayList<>(Arrays.asList(id, tipo, precio, peso, img)));
                                     }
                                     AdapterProductos adapterProductos = new AdapterProductos(listaProductos);
+                                    adapterProductos.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            String idProducto = (String) listaProductos.get(recycler.getChildAdapterPosition(v)).get(0).toString();
+                                            String tipoProducto = (String) listaProductos.get(recycler.getChildAdapterPosition(v)).get(1).toString();
+                                            String precioProducto = listaProductos.get(recycler.getChildAdapterPosition(v)).get(2).toString();
+                                            String pesoProducto = listaProductos.get(recycler.getChildAdapterPosition(v)).get(3).toString();
+                                            String imagenProducto = (String) listaProductos.get(recycler.getChildAdapterPosition(v)).get(4).toString();
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString("id", idProducto);
+                                            bundle.putString("tipo", tipoProducto);
+                                            bundle.putString("precio", precioProducto);
+                                            bundle.putString("peso", pesoProducto);
+                                            bundle.putString("imagen", imagenProducto);
+                                            fragment.setArguments(bundle);
+                                            fragmentTransaction.replace(R.id.container, fragment);
+                                            fragmentTransaction.addToBackStack(null);
+                                            fragmentTransaction.commit();
+                                        }
+                                    });
                                     recycler.setAdapter(adapterProductos);
+
                                 } else {
                                     // hacer algo si la respuesta no tiene el formato esperado
                                     throw new JSONException("El valor de la clave 'idproducto' no se encontró en la respuesta del servidor");
