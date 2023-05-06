@@ -1,9 +1,13 @@
 package com.example.ecolivina.data.fragmentos;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
@@ -11,6 +15,7 @@ import androidx.lifecycle.OnLifecycleEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +40,7 @@ public class ProductFragment extends Fragment {
     String id, tipo, precio, peso, imagen;
     TextView textTipo, textCat, textDescrip, textPeso, textPrecio;
     ImageView viewProducto;
+    Button btnChat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +70,7 @@ public class ProductFragment extends Fragment {
         textDescrip = view.findViewById(R.id.textViewDescrip);
         textPeso = view.findViewById(R.id.textViewPeso);
         textPrecio = view.findViewById(R.id.textViewPrecio);
+        btnChat = view.findViewById(R.id.btnChat);
 
         Bundle bundle = getArguments();
         if (bundle != null) {;
@@ -144,6 +151,13 @@ public class ProductFragment extends Fragment {
                             textCat.setText(categoria);
                             textDescrip.setText(descripcion);
 
+                            String URL = "http://10.0.2.2/ecolivina/usuarios/fetchId.php?id="+iduser;
+                            ejecutarServicio2(URL);
+
+                            Bundle bundle = getArguments();
+                            int telefono = bundle.getInt("telefono");
+                            String username = bundle.getString("username");
+
                         } catch (JSONException ex) {
                             throw new RuntimeException(ex);
                         }
@@ -157,6 +171,53 @@ public class ProductFragment extends Fragment {
                 }
         );
         RequestQueue requestQueue = Volley.newRequestQueue(Objects.requireNonNull(getActivity()));
+        requestQueue.add(request);
+
+    }
+
+    private void ejecutarServicio2(String URL) {
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.GET,
+                URL,
+                null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            int iduser = response.getInt("iduser");
+                            String nombre = response.getString("nombre");
+                            String apellidos = response.getString("apellidos");
+                            String username = response.getString("username");
+                            String email = response.getString("email");
+                            String password = response.getString("password");
+                            int telefono = response.getInt("telefono");
+                            Toast.makeText(getContext(), "telefono: "+telefono+ " Username: "+username, Toast.LENGTH_SHORT).show();
+                            System.out.println("El telefono del usuario vendedor es: " + telefono+" y el username es: "+username);
+
+                            btnChat.setOnClickListener( new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    String url = "https://wa.me/"+telefono;
+
+                                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                    startActivity(intent);
+                                }
+                            });
+
+
+                        } catch (JSONException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(), "Error en la petición ".concat(error.toString()), Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         requestQueue.add(request);
 
     }

@@ -18,7 +18,7 @@
     <string name="prompt_emailRegister">Email</string>
     <string name="prompt_passwordRegister">Password</string>
     <string name="prompt_passwordRepeatRegister">Re-Password</string>
-    <string name="prompt_edadRegister">Edad</string>
+    <string name="prompt_telefonoRegister">Teléfono</string>
     <string name="prompt_buttonRegister">GERMINAR</string>
 
     <!-- Strings related to home -->
@@ -43,6 +43,69 @@
     <string name="deleteProfile">Eliminar cuenta</string>
     <string name="imagenProfile">Imagen de Perfil</string>
 
+    <!-- Strings related to terminos-->
+    <string name="terminos">
+        Términos y condiciones de la aplicación Eco-Olivina\n
+
+Bienvenido a Eco-Olivina, la aplicación de trueque de frutas y verduras sobrantes en los huertos personales de cada hogar. Al utilizar nuestra aplicación, acepta los siguientes términos y condiciones:\n
+\n
+Uso de la aplicación\n
+La aplicación Eco-Olivina es solo para uso personal y no comercial. No puede utilizar la aplicación para revender o comerciar con los productos que adquiera a través de la misma.\n
+\n
+Responsabilidad del usuario\n
+Usted es el único responsable de la veracidad y exactitud de la información que proporcione en la aplicación Eco-Olivina. Asimismo, es responsable de garantizar que los productos que intercambie a través de la aplicación sean de su propiedad y estén en buenas condiciones.\n
+\n
+Intercambio de productos\n
+Eco-Olivina se limita a facilitar el intercambio de productos entre usuarios. No se hace responsable de la calidad de los productos que se intercambian ni de cualquier problema que surja entre los usuarios.\n
+\n
+Política de privacidad\n
+La privacidad de nuestros usuarios es muy importante para nosotros. Nos comprometemos a proteger la privacidad de su información personal y solo utilizaremos su información de acuerdo con nuestra Política de privacidad, la cual está disponible en nuestra página web.\n
+\n
+Propiedad intelectual\n
+Todos los derechos de propiedad intelectual relacionados con la aplicación Eco-Olivina, incluidos los derechos de autor, marcas comerciales y patentes, son propiedad exclusiva de Eco-Olivina o de sus licenciantes.\n
+\n
+Modificaciones de los términos y condiciones\n
+Eco-Olivina se reserva el derecho de modificar estos términos y condiciones en cualquier momento. Al continuar utilizando la aplicación después de que se hayan realizado modificaciones, se considera que ha aceptado dichas modificaciones.\n
+\n
+Terminación del servicio\n
+Eco-Olivina se reserva el derecho de suspender o cancelar su acceso a la aplicación en cualquier momento y por cualquier motivo.\n
+\n
+Ley aplicable\n
+Estos términos y condiciones se regirán e interpretarán de acuerdo con las leyes de [país de origen], y cualquier disputa que surja en relación con estos términos y condiciones se resolverá exclusivamente en los tribunales de [ciudad de origen].\n
+\n
+Al utilizar la aplicación Eco-Olivina, usted acepta estos términos y condiciones en su totalidad. Si no está de acuerdo con ellos, no utilice la aplicación.\n
+    </string>
+
+    <!-- Strings related to terminos-->
+    <string name="politicas">
+        Política de privacidad de la aplicación Eco-Olivina\n
+\n
+Eco-Olivina se preocupa por la privacidad de nuestros usuarios y nos comprometemos a proteger su información personal. Esta Política de privacidad describe cómo recopilamos, usamos y protegemos la información personal que obtenemos de usted a través de la aplicación Eco-Olivina.\n
+\n
+Información personal que recopilamos\n
+Podemos recopilar información personal, como su nombre, dirección de correo electrónico, número de teléfono y dirección postal, cuando se registre en la aplicación Eco-Olivina o cuando se comunica con nosotros. También podemos recopilar información sobre los productos que intercambia a través de la aplicación.\n
+\n
+Cómo utilizamos su información personal\n
+Utilizamos su información personal para proporcionarle los servicios de la aplicación Eco-Olivina, para comunicarnos con usted y para mejorar nuestros servicios. También podemos utilizar su información personal para enviarle actualizaciones sobre la aplicación y para fines de marketing directo.\n
+\n
+Compartir su información personal\n
+No compartimos su información personal con terceros, excepto en las siguientes circunstancias:\n
+\n
+Si es necesario para proporcionarle los servicios de la aplicación Eco-Olivina, como para facilitar el intercambio de productos.\n
+Si es necesario para cumplir con las leyes y regulaciones aplicables.\n
+Si es necesario para proteger los derechos, propiedad o seguridad de Eco-Olivina o de nuestros usuarios.\n
+Seguridad de su información personal\n
+Nos tomamos muy en serio la seguridad de su información personal. Tomamos medidas razonables para proteger su información personal de la pérdida, uso indebido y acceso no autorizado, divulgación, alteración y destrucción. Utilizamos medidas de seguridad técnicas, físicas y administrativas para proteger su información personal.\n
+\n
+Cambios en la Política de privacidad\n
+Eco-Olivina se reserva el derecho de modificar esta Política de privacidad en cualquier momento. Si realizamos cambios significativos en esta Política de privacidad, le notificaremos a través de la aplicación o mediante un aviso en nuestra página web.\n
+\n
+Contacto\n
+Si tiene preguntas o inquietudes sobre nuestra Política de privacidad, comuníquese con nosotros a través de la sección de contacto en la aplicación.\n
+\n
+Al utilizar la aplicación Eco-Olivina, usted acepta esta Política de privacidad en su totalidad. Si no está de acuerdo con esta Política de privacidad, no utilice la aplicación.\n
+    </string>
+
     <!-- Strings related to Products -->
     <string name="nombre_producto">Nombre del producto</string>
     <string name="precio_producto">Precio/Kg</string>
@@ -55,4 +118,5 @@
     <string name="editPeso">Precio</string>
     <string name="editCant">Peso</string>
     <string name="productoView">producto imagen</string>
+    <string name="mensaje">Mensaje</string>
 </resources>

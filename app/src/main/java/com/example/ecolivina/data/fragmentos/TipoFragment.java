@@ -92,7 +92,9 @@ public class TipoFragment extends Fragment {
                                                 bundle.putInt("idCategoria", idCategoriaClick);
                                                 Bundle bundleGet = getArguments();
                                                 int iduser = bundleGet.getInt("iduser");
+                                                String nombre = bundleGet.getString("nombreUser");
                                                 bundle.putInt("iduser", iduser);
+                                                bundle.putString("nombreUser", nombre);
                                                 fragment.setArguments(bundle);
                                                 fragmentTransaction.replace(R.id.container, fragment);
                                                 fragmentTransaction.addToBackStack(null);

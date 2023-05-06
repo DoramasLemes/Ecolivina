@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,7 +23,7 @@ import java.util.Map;
 public class RegisterActivity extends AppCompatActivity {
 
     //Declaración de las variables necesarias
-    EditText name, apellidos, username, email, password, password2, edad;
+    EditText name, apellidos, username, email, password, password2, telefono;
     Button btn_register;
 
     @Override
@@ -39,7 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.emailRegister);
         password = findViewById(R.id.passwordRegister);
         password2 = findViewById(R.id.passwordRepeatRegister);
-        edad = findViewById(R.id.edadRegister);
+        telefono = findViewById(R.id.telefonoRegister);
         btn_register = findViewById(R.id.btnRegister);
 
         //Validación de los campos
@@ -47,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             // Creamos el Array de todos los campos
             EditText[] listCampos = {name, apellidos, username, email
-                    , apellidos, email, password, password2, edad};
+                    , apellidos, email, password, password2, telefono};
 
             //Iteramos el array para ver si hay algun campo vacio
             for (EditText listCampo : listCampos) {
@@ -59,14 +58,14 @@ public class RegisterActivity extends AppCompatActivity {
                 }else if (password.getText().toString().equals(password2.getText().toString())){
                     //Si las contraseñas son iguales, ejecutamos el servicio
                     ejecutarServicio("http://10.0.2.2/ecoLivina/registrar_usuario.php");
-            }else{
+                }else{
                     //Si las contraseñas no son iguales, avisamos al usuario
                     Toast.makeText(RegisterActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                     password.setError("Las contraseñas no coinciden");
                     password2.setError("Las contraseñas no coinciden");
                 }
-        }
-    });
+            }
+        });
     }
 
     //Metodo para registrar un usuario en MySQL
@@ -98,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                 parametros.put("username", username.getText().toString());
                 parametros.put("email", email.getText().toString());
                 parametros.put("password", password.getText().toString());
-                parametros.put("edad", edad.getText().toString());
+                parametros.put("telefono", telefono.getText().toString());
                 return parametros;
             }
         };

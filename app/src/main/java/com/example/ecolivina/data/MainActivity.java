@@ -1,10 +1,8 @@
 package com.example.ecolivina.data;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.example.ecolivina.R;
-import com.example.ecolivina.data.fragmentos.CrearFragment;
 import com.example.ecolivina.data.fragmentos.FavFragment;
 import com.example.ecolivina.data.fragmentos.HomeFragment;
 import com.example.ecolivina.data.fragmentos.PerfilFragment;
@@ -28,10 +24,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
     String emailUser, passwordUser;
@@ -87,14 +79,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.navigation_home:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
                 break;
-            case R.id.navigation_favs:
-                getSupportFragmentManager().beginTransaction().replace(R.id.container, favFragment).commit();
-                break;
             case R.id.navigation_subir:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, tipoFragment).commit();
-                break;
-            case R.id.navigation_buzon:
-                Toast.makeText(MainActivity.this, "Buzon", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.navigation_perfil:
                 getSupportFragmentManager().beginTransaction().replace(R.id.container, perfilFragment).commit();
@@ -127,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                             String username = response.getString("username");
                             String email = response.getString("email");
                             String password = response.getString("password");
-                            int edad = response.getInt("edad");
+                            int telefono = response.getInt("telefono");
                             Bundle bundle = new Bundle();
                             bundle.putInt("iduser", iduser);
                             bundle.putString("nombre", nombre);
@@ -135,9 +121,11 @@ public class MainActivity extends AppCompatActivity {
                             bundle.putString("username", username);
                             bundle.putString("email", email);
                             bundle.putString("password", password);
-                            bundle.putInt("edad", edad);
+                            bundle.putInt("telefono", telefono);
                             System.out.println("El id del usuario es: " + iduser);
                             tipoFragment.setArguments(bundle);
+                            homeFragment.setArguments(bundle);
+                            perfilFragment.setArguments(bundle);
 
                         } catch (JSONException ex) {
                             throw new RuntimeException(ex);

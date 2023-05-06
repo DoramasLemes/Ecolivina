@@ -4,25 +4,15 @@
         android:id="@+id/navigation_home"
         android:title="@string/navigation_home"
         android:enabled="true"
-        android:icon="@drawable/logoolivina"/>
-    <item
-        android:id="@+id/navigation_favs"
-        android:title="@string/navigation_favs"
-        android:enabled="true"
-        android:icon="@drawable/logoolivina"/>
+        android:icon="@drawable/home"/>
     <item
         android:id="@+id/navigation_subir"
         android:title="@string/navigation_subir"
         android:enabled="true"
-        android:icon="@drawable/logoolivina"/>
-    <item
-        android:id="@+id/navigation_buzon"
-        android:title="@string/navigation_buzon"
-        android:enabled="true"
-        android:icon="@drawable/logoolivina"/>
+        android:icon="@drawable/subir"/>
     <item
         android:id="@+id/navigation_perfil"
         android:title="@string/navigation_perfil"
         android:enabled="true"
-        android:icon="@drawable/logoolivina"/>
+        android:icon="@drawable/usuario"/>
 </menu>

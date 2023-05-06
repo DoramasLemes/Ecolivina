@@ -91,6 +91,13 @@ public class HomeFragment extends Fragment {
                                             bundle.putString("precio", precioProducto);
                                             bundle.putString("peso", pesoProducto);
                                             bundle.putString("imagen", imagenProducto);
+                                            Bundle bundleGet = getArguments();
+                                            if (bundleGet != null) {
+                                                int telefono = bundleGet.getInt("telefono");
+                                                String username = bundleGet.getString("username");
+                                                bundle.putInt("telefono", telefono);
+                                                bundle.putString("username", username);
+                                            }
                                             fragment.setArguments(bundle);
                                             fragmentTransaction.replace(R.id.container, fragment);
                                             fragmentTransaction.addToBackStack(null);

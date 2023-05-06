@@ -1,10 +1,13 @@
 package com.example.ecolivina.data.fragmentos;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.OnLifecycleEvent;
@@ -12,11 +15,21 @@ import androidx.lifecycle.OnLifecycleEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.ecolivina.R;
+import com.example.ecolivina.data.LoginActivity;
 import com.example.ecolivina.data.MainActivity;
 
+import java.util.Objects;
+
 public class PerfilFragment extends Fragment {
+
+    TextView txtEmail, txtUsername;
+    Button btnTerminos, btnPoliticas, btnCerrarSesion, btnDelete;
+    TerminosFragment terminosFragment = new TerminosFragment();
 
     @Nullable
     @Override
@@ -40,6 +53,59 @@ public class PerfilFragment extends Fragment {
 
         // Agregar el LifecycleObserver al ciclo de vida del fragmento
         getLifecycle().addObserver(lifecycleObserver);
+
+        txtEmail = view.findViewById(R.id.txtEmail);
+        txtUsername = view.findViewById(R.id.txtUsername);
+        btnTerminos = view.findViewById(R.id.btnTerminos);
+        btnPoliticas = view.findViewById(R.id.btnPoliticas);
+        btnCerrarSesion = view.findViewById(R.id.btnCerrarSesion);
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {;
+            int iduser = bundle.getInt("iduser");
+            String nombre = bundle.getString("nombre");
+            String apellidos = bundle.getString("apellidos");
+            String username = bundle.getString("username");
+            String email = bundle.getString("email");
+            String password = bundle.getString("password");
+            int telefono = bundle.getInt("telefono");
+
+            txtEmail.setText(email);
+            txtUsername.setText(username);
+
+        }
+
+        btnTerminos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, terminosFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        btnPoliticas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PoliticasFragment politicasFragment = new PoliticasFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.container, politicasFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        btnCerrarSesion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         return view;
         }
