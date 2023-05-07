@@ -82,11 +82,13 @@
         app:layout_constraintEnd_toStartOf="@+id/textViewPeso"
         app:layout_constraintTop_toBottomOf="@+id/imageProducto" />
 
-    <Button
+    <ImageView
         android:id="@+id/btnChat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageProducto" />
 </androidx.constraintlayout.widget.ConstraintLayout>

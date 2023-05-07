@@ -40,7 +40,7 @@ public class ProductFragment extends Fragment {
     String id, tipo, precio, peso, imagen;
     TextView textTipo, textCat, textDescrip, textPeso, textPrecio;
     ImageView viewProducto;
-    Button btnChat;
+    ImageView btnChat;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
