@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -54,6 +56,19 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setOnItemSelectedListener(item -> {
             changeFragment(item.getItemId());
             return true;
+        });
+
+        Button lookingButton = findViewById(R.id.lookingButton);
+        EditText lookingText = findViewById(R.id.lookingText);
+
+        lookingButton.setOnClickListener(v -> {
+            if (getSupportFragmentManager().findFragmentById(R.id.container) == homeFragment) {
+                String txtBusqueda = lookingText.getText().toString();
+                homeFragment.fetchByName("http://10.0.2.2/ecolivina/productos/fetchByName.php?busqueda="+txtBusqueda);
+            } else if (getSupportFragmentManager().findFragmentById(R.id.container) == tipoFragment) {
+                String txtBusqueda = lookingText.getText().toString();
+                tipoFragment.fetchByName("http://10.0.2.2/ecolivina/tipos/fetchByName.php?busqueda="+txtBusqueda);
+            }
         });
 
         //Se reciben los datos del usuario
