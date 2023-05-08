@@ -191,7 +191,6 @@ public class ProductFragment extends Fragment {
                             String email = response.getString("email");
                             String password = response.getString("password");
                             int telefono = response.getInt("telefono");
-                            Toast.makeText(getContext(), "telefono: "+telefono+ " Username: "+username, Toast.LENGTH_SHORT).show();
                             System.out.println("El telefono del usuario vendedor es: " + telefono+" y el username es: "+username);
 
                             btnChat.setOnClickListener( new View.OnClickListener() {

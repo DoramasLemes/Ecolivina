@@ -63,8 +63,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this, "Error al recibir los datos del usuario", Toast.LENGTH_SHORT).show();
         }
 
-        Toast.makeText(MainActivity.this, "El mail del usuario es: " +emailUser + "\n La contraseña del usuario es: " + passwordUser, Toast.LENGTH_SHORT).show();
-
     }
 
     //Metodo para cambiar de actividad
@@ -93,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         emailUser = extras.getString("email");
         passwordUser = extras.getString("password");
-        Toast.makeText(MainActivity.this, "El mail del usuario es: " +emailUser + "\n La contraseña del usuario es: " + passwordUser, Toast.LENGTH_SHORT).show();
+
         String URL = "http://10.0.2.2/ecolivina/usuarios/fetch.php?email="+emailUser;
         ejecutarServicio(URL);
     }
