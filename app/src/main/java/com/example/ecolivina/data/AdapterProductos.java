@@ -52,7 +52,7 @@ public class AdapterProductos extends RecyclerView.Adapter<AdapterProductos.View
                     //Obtener la posición del elemento seleccionado
                     int position = holder.getAdapterPosition();
 
-                    //Obtener los datos correspondientes del elemento seleccionado en la lista de tipos
+                    //Obtener los datos correspondientes del elemento seleccionado en la lista
                     String nombreProducto = (String) listaProductos.get(position).get(1);
                     String precioProducto = (String) listaProductos.get(position).get(2);
                     String pesoProducto = (String) listaProductos.get(position).get(3);

@@ -19,11 +19,13 @@ import com.example.ecolivina.R;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class RegisterActivity extends AppCompatActivity {
 
     //Declaración de las variables necesarias
-    EditText name, apellidos, username, email, password, password2, telefono;
+    EditText name, apellidos, username, email, password, password2, prefix, telefono;
     Button btn_register;
 
     @Override
@@ -38,6 +40,7 @@ public class RegisterActivity extends AppCompatActivity {
         email = findViewById(R.id.emailRegister);
         password = findViewById(R.id.passwordRegister);
         password2 = findViewById(R.id.passwordRepeatRegister);
+        prefix = findViewById(R.id.prefijoRegister);
         telefono = findViewById(R.id.telefonoRegister);
         btn_register = findViewById(R.id.btnRegister);
 
@@ -46,7 +49,7 @@ public class RegisterActivity extends AppCompatActivity {
 
             // Creamos el Array de todos los campos
             EditText[] listCampos = {name, apellidos, username, email
-                    , apellidos, email, password, password2, telefono};
+                    , apellidos, password, password2, prefix, telefono};
 
             //Iteramos el array para ver si hay algun campo vacio
             for (EditText listCampo : listCampos) {
@@ -55,6 +58,10 @@ public class RegisterActivity extends AppCompatActivity {
                     //Añadimos el error y avisamos al usuario
                     listCampo.setError("El campo es obligatorio");
                     Toast.makeText(RegisterActivity.this, "Los campos son obligatorios", Toast.LENGTH_SHORT).show();
+                }else if(!verificarEmail(email.getText().toString())){
+                    //Si el email no es valido, avisamos al usuario
+                    email.setError("El email no es valido");
+                    Toast.makeText(RegisterActivity.this, "El email no es valido", Toast.LENGTH_SHORT).show();
                 }else if (password.getText().toString().equals(password2.getText().toString())){
                     //Si las contraseñas son iguales, ejecutamos el servicio
                     ejecutarServicio("http://10.0.2.2/ecoLivina/registrar_usuario.php");
@@ -66,6 +73,15 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private Boolean verificarEmail(String email){
+        // Patrón para validar el email
+        Pattern pattern = Pattern
+                .compile("^(.+)@(.+)$");
+
+        Matcher mather = pattern.matcher(email);
+        return mather.find();
     }
 
     //Metodo para registrar un usuario en MySQL
@@ -91,13 +107,14 @@ public class RegisterActivity extends AppCompatActivity {
             //Añadimos los parametros que vamos a enviar al servidor
             @Override
             protected Map<String, String> getParams() {
+                String telefonoCompleto = prefix.getText().toString().concat(telefono.getText().toString());
                 Map<String, String> parametros = new HashMap<>();
                 parametros.put("nombre", name.getText().toString());
                 parametros.put("apellidos", apellidos.getText().toString());
                 parametros.put("username", username.getText().toString());
                 parametros.put("email", email.getText().toString());
                 parametros.put("password", password.getText().toString());
-                parametros.put("telefono", telefono.getText().toString());
+                parametros.put("telefono", telefonoCompleto);
                 return parametros;
             }
         };
